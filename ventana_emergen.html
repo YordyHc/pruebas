@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal con Video de YouTube</title>
+<style>
+ .modal {
+        display: none; /* Oculto por defecto */
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .modal-content {
+        background-color: white;
+        width: 75%;
+        max-width: 800px;
+        left: 0;
+        top: 0;
+        height: auto;
+        text-align: center;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow: hidden; /* Oculta cualquier desbordamiento */
+    }
+    
+    /* Botón de cerrar */
+    .close {
+        position: absolute;
+        top: 69px; /* Sube la 'X' fuera del modal */
+        right: 16px; /* La mueve un poco fuera del modal */
+        font-size: 20px;
+        cursor: pointer;
+        z-index: 100; /* Asegura que esté sobre todo */
+        background: rgba(255, 255, 255, 0.555);
+        padding: 10px 15px;
+        border-radius: 50%;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    }
+    .close:hover{
+        background: #fff;
+    }
+
+    
+    /* Contenedor del iframe con recorte */
+    .iframe-container {
+        width: 100%;
+        height: 450px; /* Ajusta la altura del recorte */
+        position: relative;
+        overflow: hidden; /* Oculta las partes no deseadas */
+    }
+    
+    /* Ajusta el iframe para que ocupe más espacio y se recorte */
+    .iframe-container iframe {
+        position: absolute;
+        top: 0%; /* Recorta la parte superior */
+        left: 0%; /* Recorta los lados */
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+    
+    /* Contenido extra debajo del iframe */
+    .modal-extra-content {
+        padding: 20px;
+        text-align: left;
+        width: 100%;
+    }
+    </style>
+<body>
+    <!-- Botón para abrir la modal -->
+<button onclick="playvideo('A-uF62aNqJ8')">Abrir Modal</button>
+
+<!-- Ventana modal -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+
+        <!-- Contenedor del video con recorte -->
+        <div class="iframe-container">
+            <iframe id="videoFrame" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+
+        <!-- Contenido extra debajo del video -->
+        <div class="modal-extra-content">
+            <br><br><br><br><br><br>
+            <h3>Detalles del Video</h3>
+            <p>Aquí puedes agregar información adicional, botones, descripción, etc.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    var modal = document.getElementById("myModal");
+    var closeBtn = document.getElementsByClassName("close")[0];
+    var videoFrame = document.getElementById("videoFrame");
+
+    function playvideo(id_video) {
+        modal.style.display = "flex"; // Mostrar la modal
+        videoFrame.src = "https://www.youtube.com/embed/" + id_video + "?si=bAtHCHmwT3C25Gry&autoplay=1&rel=0";
+    }
+
+    // Cerrar modal al hacer clic en la 'X'
+    closeBtn.onclick = function() {
+        modal.style.display = "none";
+        videoFrame.src = ""; // Detener el video al cerrar
+    }
+
+    // Cerrar modal si el usuario hace clic fuera del contenido
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+            videoFrame.src = ""; // Detener el video al cerrar
+        }
+    }
+</script>
+
+</body>
+</body>
+</html>
